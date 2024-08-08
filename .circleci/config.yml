@@ -17,9 +17,9 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y wget unzip openjdk-17-jdk
       - run:
-          name: Dar permisos a Gradlew para ejecucion
+          name: Dar permisos a Gradlew para ejecución
           command: |
-		chmod +x ./gradlew
+            sudo chmod +x ./gradlew
       - run:
           name: Verificar versiones de Chrome y Driver
           command: |
@@ -31,19 +31,34 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Dar permisos a Gradlew para ejecución
+          command: |
+            sudo chmod +x ./gradlew
+      - run:
           name: Construir y Compilar Proyecto
           command: |
-		./gradlew clean build -x test
-
+            ./gradlew clean build -x test
 
   test:
     executor: java-executor
     steps:
       - checkout
       - run:
+          name: Dar permisos a Gradlew para ejecución
+          command: |
+            sudo chmod +x ./gradlew
+      - run:
           name: Ejecutar E2E Test
           command: |
-		./gradlew clean test -Dwebdriver.chrome.driver=/usr/bin/chromedriver aggregate reports --info --stacktrace
+            ./gradlew clean test -Dwebdriver.chrome.driver=/usr/bin/chromedriver aggregate reports --info --stacktrace
+      - store_test_results:
+          path: target/site/serenity
+          when: always
+          paths:
+            - "*.xml" # Incluir solo archivos XML válidos de resultados de pruebas
+      - store_artifacts:
+          path: target/site/serenity
+          when: always
 
 workflows:
   version: 2
