@@ -52,7 +52,12 @@ jobs:
           command: |
             ./gradlew clean test -Dwebdriver.chrome.driver=/usr/bin/chromedriver aggregate reports --info --stacktrace
       - store_test_results:
-          path: target
+          path: target/site/serenity
+          when: always
+          paths:
+            - "*.xml" # Incluir solo archivos XML válidos de resultados de pruebas
+      - store_artifacts:
+          path: target/site/serenity
           when: always
 
 workflows:
