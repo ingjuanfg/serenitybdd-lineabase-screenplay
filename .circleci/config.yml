@@ -51,6 +51,8 @@ jobs:
           name: Ejecutar E2E Test
           command: |
             ./gradlew clean test -Dwebdriver.chrome.driver=/usr/bin/chromedriver aggregate reports --info --stacktrace
+      - store_test_results:
+          path: target
 
 workflows:
   version: 2
