@@ -21,10 +21,7 @@ jobs:
           command: chmod +x ./gradlew
       - run:
           name: Run tests
-          command: ./gradlew clean test -Ddriver=chrome -Denvironment=pdn aggregate reports --info --stacktrace
-      - store_artifacts:
-          path: build/reports/tests
-          destination: test-results
+          command: ./gradlew clean test aggregate reports --info --stacktrace
 
 workflows:
   version: 2
