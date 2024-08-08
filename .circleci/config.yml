@@ -53,6 +53,7 @@ jobs:
             ./gradlew clean test -Dwebdriver.chrome.driver=/usr/bin/chromedriver aggregate reports --info --stacktrace
       - store_test_results:
           path: target
+          when: always
 
 workflows:
   version: 2
