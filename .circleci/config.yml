@@ -8,9 +8,7 @@ executors:
 
 jobs:
   config:
-    executor: java-executor
     steps:
-      - checkout
       - run:
           name: Instalar Herramientas
           command: |
@@ -27,9 +25,7 @@ jobs:
             chromedriver --version
 
   build:
-    executor: java-executor
     steps:
-      - checkout
       - run:
           name: Dar permisos a Gradlew para ejecución
           command: |
@@ -40,9 +36,7 @@ jobs:
             ./gradlew clean build -x test
 
   test:
-    executor: java-executor
     steps:
-      - checkout
       - run:
           name: Dar permisos a Gradlew para ejecución
           command: |
