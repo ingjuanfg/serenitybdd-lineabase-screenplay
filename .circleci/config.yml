@@ -7,49 +7,29 @@ executors:
     working_directory: ~/repo
 
 jobs:
-  config:
-    executor: java-executor
-    steps:
-      - checkout
-      - run:
-          name: Instalar Herramientas
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y wget unzip openjdk-17-jdk
-      - run:
-          name: Dar permisos a Gradlew para ejecucion
-          command: chmod +x ./gradlew
-      - run:
-          name: Verificar versiones de Chrome y Driver
-          command: |
-            google-chrome --version
-            chromedriver --version
-
-  build:
-    executor: java-executor
-    steps:
-      - checkout
-      - run:
-          name: Construir y Compilar Proyecto
-          command: ./gradlew clean build -x test
-
-
   test:
     executor: java-executor
     steps:
       - checkout
       - run:
-          name: Ejecutar E2E Test
+          name: Install dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y wget unzip openjdk-17-jdk
+      - run:
+          name: Give Gradle wrapper execute permissions
+          command: chmod +x ./gradlew
+      - run:
+          name: Check Chrome and ChromeDriver versions
+          command: |
+            google-chrome --version
+            chromedriver --version
+      - run:
+          name: Run tests
           command: ./gradlew clean test -Dwebdriver.chrome.driver=/usr/bin/chromedriver aggregate reports --info --stacktrace
 
 workflows:
   version: 2
-  build_and_test:
+  test:
     jobs:
-      - config
-      - build:
-          requires:
-            - config
-      - test:
-          requires:
-            - build
+      - test
