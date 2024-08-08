@@ -21,7 +21,7 @@ jobs:
             export PATH=$PATH:~/repo/gradle-6.8.3/bin
       - run:
           name: Run tests
-          command: gradle clean test -Ddriver=edge -Denvironment=pdn aggregate reports --info --stacktrace
+          command: gradle clean test aggregate reports --info --stacktrace
 
 workflows:
   version: 2
