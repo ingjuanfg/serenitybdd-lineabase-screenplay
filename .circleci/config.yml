@@ -31,6 +31,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Dar permisos a Gradlew para ejecución
+          command: |
+            sudo chmod +x ./gradlew
+      - run:
           name: Construir y Compilar Proyecto
           command: |
             ./gradlew clean build -x test
@@ -39,6 +43,10 @@ jobs:
     executor: java-executor
     steps:
       - checkout
+      - run:
+          name: Dar permisos a Gradlew para ejecución
+          command: |
+            sudo chmod +x ./gradlew
       - run:
           name: Ejecutar E2E Test
           command: |
