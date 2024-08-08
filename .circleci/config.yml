@@ -3,7 +3,7 @@ version: 2.1
 executors:
   java-executor:
     docker:
-      - image: circleci/openjdk:17.0.2-jdk
+      - image: openjdk:17
     working_directory: ~/repo
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
           name: Install dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install -y wget
+            sudo apt-get install -y wget unzip
             wget https://services.gradle.org/distributions/gradle-6.8.3-bin.zip
             unzip gradle-6.8.3-bin.zip
             export PATH=$PATH:~/repo/gradle-6.8.3/bin
