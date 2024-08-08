@@ -20,8 +20,16 @@ jobs:
           name: Give Gradle wrapper execute permissions
           command: chmod +x ./gradlew
       - run:
+          name: Check Chrome and ChromeDriver versions
+          command: |
+            google-chrome --version
+            chromedriver --version
+      - run:
           name: Run tests
-          command: ./gradlew clean test aggregate reports --info --stacktrace
+          command: ./gradlew clean test -Dwebdriver.chrome.driver=/usr/bin/chromedriver aggregate reports --info --stacktrace
+      - store_artifacts:
+          path: build/reports/tests
+          destination: test-results
 
 workflows:
   version: 2
