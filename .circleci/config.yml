@@ -14,12 +14,12 @@ jobs:
       - run:
           name: Instalar Herramientas
           command: |
-            apt-get update
-            apt-get install -y wget unzip openjdk-17-jdk
+            sudo apt-get update
+            sudo apt-get install -y wget unzip openjdk-17-jdk
       - run:
           name: Dar permisos a Gradlew para ejecución
           command: |
-            chmod +x ./gradlew
+            sudo chmod +x ./gradlew
       - run:
           name: Verificar versiones de Chrome y Driver
           command: |
