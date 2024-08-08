@@ -16,9 +16,16 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install -y wget unzip openjdk-17-jdk
-            wget https://services.gradle.org/distributions/gradle-6.8.3-bin.zip
-            unzip gradle-6.8.3-bin.zip
-            export PATH=$PATH:~/repo/gradle-6.8.3/bin
+            wget -c https://services.gradle.org/distributions/gradle-7.4.2-bin.zip -P /tmp
+            ls /tmp
+            sudo unzip -d /opt/gradle /tmp/gradle-7.4.2-bin.zip
+            ls /opt/gradle
+            sudo nano /etc/profile.d/gradle.sh
+            export GRADLE_HOME=/opt/gradle/gradle-7.4.2
+            export PATH=${GRADLE_HOME}/bin:${PATH}
+            sudo chmod +x /etc/profile.d/gradle.sh
+            source /etc/profile.d/gradle.sh
+            gradle --version
       - run:
           name: Run tests
           command: gradle clean test -Ddriver=chrome -Denvironment=pdn aggregate reports --info --stacktrace
