@@ -17,8 +17,14 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y wget unzip openjdk-17-jdk
       - run:
+          name: Give Gradle wrapper execute permissions
+          command: chmod +x ./gradlew
+      - run:
           name: Run tests
-          command: sudo ./gradlew clean test aggregate reports --info --stacktrace
+          command: ./gradlew clean test -Ddriver=chrome -Denvironment=pdn aggregate reports --info --stacktrace
+      - store_artifacts:
+          path: build/reports/tests
+          destination: test-results
 
 workflows:
   version: 2
