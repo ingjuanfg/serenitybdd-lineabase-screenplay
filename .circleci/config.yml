@@ -14,8 +14,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apt-get update
-            apt-get install -y wget unzip
+            sudo apt-get update
+            sudo apt-get install -y wget unzip
             wget https://services.gradle.org/distributions/gradle-6.8.3-bin.zip
             unzip gradle-6.8.3-bin.zip
             export PATH=$PATH:~/repo/gradle-6.8.3/bin
