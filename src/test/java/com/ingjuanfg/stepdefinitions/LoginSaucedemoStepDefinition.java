@@ -38,5 +38,6 @@ public class LoginSaucedemoStepDefinition {
     @Then("su autenticacion es exitosa")
     public void suAutenticacionEsExitosa() {
         theActorInTheSpotlight().attemptsTo(Ensure.that(TITLE_PRODUCTOS).text().isEqualTo("Products"));
+        System.out.println("Hola");
     }
 }
